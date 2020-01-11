@@ -151,10 +151,25 @@ def all_students_tuple_list(filename):
 
     student_list = []
 
-    # Code goes here
+    student_info_file = open(filename)
+
+    for line in student_info_file:
+        line = line.rstrip()
+        student_info = line.split("|")
+
+        if student_info[2] != "":
+
+            name = student_info[0] + " " + student_info[1]
+            house = student_info[2]
+            advisor = student_info[3]
+            cohort = student_info[4]
+
+            student_info_tuple = (name, house, advisor, cohort)
+            student_list.append(student_info_tuple)
 
     return student_list
 
+all_students_data = all_students_tuple_list("cohort_data.txt")
 
 def find_cohort_by_student_name(student_list):
     """TODO: Given full name, return student's cohort.
@@ -178,6 +193,11 @@ def find_cohort_by_student_name(student_list):
 
     # Code goes here
 
+    student_to_search = input("Who are you looking for? ")
+    for student in student_list:
+        if student[0] == student_to_search:
+            return f"{student_to_search} was in the {student[3]} cohort."
+
     return "Student not found."
 
 
@@ -197,9 +217,36 @@ def find_name_duplicates(filename):
 
     """
 
-    duplicate_names = set()
 
     # Code goes here
+
+    winter_16 = []
+    spring_16 = []
+    summer_16 = []
+    fall_15 = []
+
+    student_info_file = open(filename)
+
+    for line in student_info_file:
+        line = line.rstrip()
+        student_info = line.split("|")
+        last_name = student_info[1]
+
+        if student_info[4] == "Winter 2016":
+            winter_16.append(last_name)
+        elif student_info[4] == "Spring 2016":
+            spring_16.append(last_name)
+        elif student_info[4] == "Summer 2016":
+            summer_16.append(last_name)
+        elif student_info[4] == "Fall 2015":
+            fall_15.append(last_name)
+    
+    winter_16_set = set(winter_16)
+    spring_16_set = set(spring_16)
+    summer_16_set = set(summer_16)
+    fall_15_set = set(fall_15)
+
+    duplicate_names = winter_16_set & spring_16_set & summer_16_set & fall_15_set
 
     return duplicate_names
 
@@ -238,7 +285,7 @@ def find_house_members_by_student_name(student_list):
 #############################################################################
 # Here is some useful code to run these functions without doctests!
 
-# find_cohort_by_student_name(all_students_data)
+# print(find_cohort_by_student_name(all_students_data))
 # find_house_members_by_student_name(all_students_data)
 
 
