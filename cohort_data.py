@@ -279,6 +279,21 @@ def find_house_members_by_student_name(student_list):
 
     # Code goes here
 
+    student_list
+
+    student_to_search = input("Choose a student: ")
+    for student in student_list:
+        if student[0] == student_to_search:
+            fellow_housemates = []
+            return f"""{student_to_search} was in house {student[1]} in the 
+                       {student[3]} cohort./n
+                        The following students are also in their house:/n
+
+                       """
+
+    return "Student not found."
+
+
     return
 
 
